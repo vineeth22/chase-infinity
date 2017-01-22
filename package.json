@@ -1,0 +1,38 @@
+{
+  "name": "chase-infinity",
+  "version": "1.0.0",
+  "description": "Chase Infinity",
+  "main": "app.js",
+  "dependencies": {
+    "client-sessions": "^0.7.0",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.21",
+    "paper": "^0.10.2",
+    "socket.io": "^1.7.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/teknack17/chase-infinity.git"
+  },
+  "author": "",
+  "contributors": [
+    {
+      "name": "Vineeth Suvarna"
+    },
+    {
+      "name": "Shalanki Gupta"
+    },
+    {
+      "name": "Prapti Chadanshive"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/teknack17/chase-infinity/issues"
+  },
+  "homepage": "https://gitlab.com/teknack17/chase-infinity#README"
+}
