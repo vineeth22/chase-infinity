@@ -11,13 +11,15 @@
 
 <body>
     <canvas id="gameCanvas"></canvas>
-    <script>
+    <script type="text/javascript">
+        paper.install(window);
         var canvas = document.getElementById('gameCanvas');
         canvas.width = document.body.clientWidth;
         canvas.height = document.body.clientHeight;
         paper.setup(canvas);
         var socket = io();
     </script>
+<script src="javascripts/game-mechanics.js" type="text/javascript"></script>
 <script src="javascripts/game.js" type="text/javascript"></script>
 </body>
 
