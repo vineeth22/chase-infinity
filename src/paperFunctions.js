@@ -1,11 +1,6 @@
 var paper = require('paper');
 new paper.Project();
 var playerGroup = new paper.Group();
-//playerGroup.name = 'playerGroup';
-//    var playersLayer = new paper.Layer();
-//    playersLayer.activate();
-//    console.log(paper.project.activeLayer);
-
 
 function getNewPlayer(name, func) {
     var newPlayer = new paper.Path.Circle({
@@ -19,6 +14,7 @@ function getNewPlayer(name, func) {
 
     newPlayer.name = name;
     newPlayer.data.speed = 1;
+    newPlayer.data.distance = 0;
     newPlayer.data.maxSteer = 4.5;
     newPlayer.data.friction = 0.98;
     newPlayer.data.steering = 1.5;
@@ -34,15 +30,25 @@ function getNewPlayer(name, func) {
         angle: newPlayer.data.angle,
         length: newPlayer.data.length
     });
-    newPlayer.data.position = newPlayer.position;
-    playerGroup.addChild(newPlayer);
     func(newPlayer, playerGroup);
+    playerGroup.addChild(newPlayer);
+    
 }
 
 function removePlayer(playerName) {
-    if(playerGroup.children[playerName] != null)    //change this
-    playerGroup.children[playerName].remove();
+    if (playerGroup.children[playerName] != null)    //change this
+        playerGroup.children[playerName].remove();
+}
+
+function keyStateChange(player) {
+    playerGroup.children[player[1].name].segments = player[1].segments;
+    playerGroup.children[player[1].name].data = player[1].data;
+    playerGroup.children[player[1].name].data.vector = new paper.Point({
+        angle: player[1].data.angle,
+        length: player[1].data.length
+    });
 }
 
 module.exports.getNewPlayer = getNewPlayer;
 module.exports.removePlayer = removePlayer;
+module.exports.keyStateChange = keyStateChange;
