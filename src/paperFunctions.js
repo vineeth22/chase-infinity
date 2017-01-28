@@ -34,8 +34,15 @@ function getNewPlayer(name, func) {
         angle: newPlayer.data.angle,
         length: newPlayer.data.length
     });
+    newPlayer.data.position = newPlayer.position;
     playerGroup.addChild(newPlayer);
     func(newPlayer, playerGroup);
 }
 
+function removePlayer(playerName) {
+    if(playerGroup.children[playerName] != null)    //change this
+    playerGroup.children[playerName].remove();
+}
+
 module.exports.getNewPlayer = getNewPlayer;
+module.exports.removePlayer = removePlayer;
