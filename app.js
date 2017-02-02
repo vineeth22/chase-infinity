@@ -10,8 +10,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 io.on('connection', function (socket) {
     console.log("User connected");
     socket.on('newPlayer', function () {
-        paper.getNewPlayer(socket.id, function (newPlayer, playerGroup) {
-            io.to(socket.id).emit('gameState',{player:newPlayer,playerGroup:playerGroup});
+        paper.getNewPlayer(socket.id, function (newPlayer, playerGroup, outerPath, innerPath) {
+            io.to(socket.id).emit('gameState', { player: newPlayer, playerGroup: playerGroup, outerPath:outerPath, innerPath:innerPath});
             socket.broadcast.emit('newPlayer', newPlayer);
         })
     }
@@ -21,8 +21,13 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('keyStateChange', player);
         paper.keyStateChange(player);
     })
-    socket.on('disconnect',function(){
-        io.emit('leavePlayer',socket.id);
+    socket.on('collision', function (player) {
+        socket.broadcast.emit('keyStateChange', player);
+        paper.keyStateChange(player);
+    })
+    socket.on('disconnect', function () {
+        console.log("User disconnected");
+        io.emit('leavePlayer', socket.id);
         paper.removePlayer(socket.id);
     })
 
