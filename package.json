@@ -4,6 +4,7 @@
   "description": "Chase Infinity",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "client-sessions": "^0.7.0",
     "express": "^4.14.0",
     "mongodb": "^2.2.21",
