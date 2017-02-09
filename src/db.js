@@ -31,7 +31,7 @@ function getUserData(username, func) {
         assert.equal(null, err);
         //        logger.log('info', "Connected successfully to server");
         db.collection('game').find(object).toArray(function (err, r) {
-            if (r.length == 0) {    //user playing for the first time
+            if (!r || r.length == 0) {    //user playing for the first time
                 var object = new Object();
                 object.username = username;
                 object.score = 0;

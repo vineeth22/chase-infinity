@@ -71,6 +71,17 @@ var yourScore = new PointText({
     strokeColor: 'black',
     strokeWidth: 0.5
 });
+var rulesContent = new PointText({
+    point: new Point(view.bounds.topLeft.x + view.bounds.width * 0.5, view.bounds.topLeft.y + view.bounds.height * 0.6),
+    content: 'Rules\nrules\nrules\nrules\nrules\nrules\nrules\nrules',
+    fillColor: 'white',
+    fontSize: 20,
+    justification: 'center',
+    visible: false,
+//    strokeColor: 'black',
+ //   strokeWidth: 0.5
+});
+
 startScreen.addChild(gameName);
 startScreen.addChild(startGame);
 startScreen.addChild(rules);
@@ -132,11 +143,31 @@ startGame.onClick = function (event) {
 
 leaderboard.onClick = function (event) {
     if (leaderboardClicked == 0) {
+        if(rulesClicked ==1){
+        rulesContent.visible = false;
+        rulesClicked == 0;
+        }
         socket.emit('getLeaderboard');
     }
     else {
         leaderboardList.visible = false;
         leaderboardClicked = 0;
+    }
+}
+
+rules.onClick = function (event) {
+    if (rulesClicked == 0) {
+        if(leaderboardClicked == 1){
+        leaderboardList.visible = false;
+        leaderboardClicked = 0;            
+        }
+        rulesContent.visible = true,
+        rulesClicked = 1
+        
+    }
+    else {
+        rulesContent.visible = false,
+        rulesClicked = 0
     }
 }
 
