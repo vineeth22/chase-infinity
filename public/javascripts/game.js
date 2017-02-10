@@ -1,5 +1,5 @@
 
-
+console.log("hi");
 var gameState = 1; //1 start screen, 2 main game, 3 exit state
 var leaderboardClicked = 0;
 var rulesClicked = 0;
@@ -57,8 +57,8 @@ var leaderboardList = new PointText({
     fontSize: 20,
     justification: 'center',
     visible: false,
-//    strokeColor: 'black',
-//    strokeWidth: 0.5
+    //    strokeColor: 'black',
+    //    strokeWidth: 0.5
 });
 
 var yourScore = new PointText({
@@ -73,13 +73,13 @@ var yourScore = new PointText({
 });
 var rulesContent = new PointText({
     point: new Point(view.bounds.topLeft.x + view.bounds.width * 0.5, view.bounds.topLeft.y + view.bounds.height * 0.6),
-    content: 'Rules\nrules\nrules\nrules\nrules\nrules\nrules\nrules',
+    content: '',
     fillColor: 'white',
     fontSize: 20,
     justification: 'center',
     visible: false,
-//    strokeColor: 'black',
- //   strokeWidth: 0.5
+    //    strokeColor: 'black',
+    //   strokeWidth: 0.5
 });
 
 startScreen.addChild(gameName);
@@ -88,17 +88,17 @@ startScreen.addChild(rules);
 startScreen.addChild(leaderboard);
 startScreen.addChild(yourScore);
 var highScore = function (score) {
-//    console.log("hi");
-    yourScore.content = 'Your Score: ' + score;
+    //    console.log("hi");
+    yourScore.content = 'Your High Score: ' + score;
 }
 var leaderboardListFunc = function (data) {
     leaderboardClicked = 1;
     leaderboardList.content = '';
     for (var i = 0; i < data.length; i++) {
-        leaderboardList.content +=  data[i].username + "   " + data[i].score + "\n";
+        leaderboardList.content += data[i].username + "   " + data[i].score + "\n";
     }
     leaderboardList.visible = true;
-//    console.log(data);
+    //    console.log(data);
 }
 socket.on('highScore', highScore);
 socket.on('leaderboardList', leaderboardListFunc);
@@ -143,9 +143,9 @@ startGame.onClick = function (event) {
 
 leaderboard.onClick = function (event) {
     if (leaderboardClicked == 0) {
-        if(rulesClicked ==1){
-        rulesContent.visible = false;
-        rulesClicked == 0;
+        if (rulesClicked == 1) {
+            rulesContent.visible = false;
+            rulesClicked == 0;
         }
         socket.emit('getLeaderboard');
     }
@@ -157,17 +157,17 @@ leaderboard.onClick = function (event) {
 
 rules.onClick = function (event) {
     if (rulesClicked == 0) {
-        if(leaderboardClicked == 1){
-        leaderboardList.visible = false;
-        leaderboardClicked = 0;            
+        if (leaderboardClicked == 1) {
+            leaderboardList.visible = false;
+            leaderboardClicked = 0;
         }
         rulesContent.visible = true,
-        rulesClicked = 1
-        
+            rulesClicked = 1
+
     }
     else {
         rulesContent.visible = false,
-        rulesClicked = 0
+            rulesClicked = 0
     }
 }
 
@@ -406,8 +406,9 @@ var gameStateFunc = function (data) {
             fontSize: 15,
             justification: 'center',
         });*/
-    // player.fullySelected = 'true';
+    // player.fufgllySelected = 'true';
     view.center = player.position;
+   // view.zoom=0.6;
     scoreText.position = new Point(view.bounds.topLeft.x + view.bounds.width * 0.03, view.bounds.topLeft.y + view.bounds.height * 0.03);
     scoreValue.position = new Point(view.bounds.topLeft.x + view.bounds.width * 0.03, view.bounds.topLeft.y + view.bounds.height * 0.06);
     energyText.position = new Point(view.bounds.topLeft.x + view.bounds.width * 0.94, view.bounds.topLeft.y + view.bounds.height * 0.03);
@@ -431,7 +432,7 @@ var gameStateFunc = function (data) {
 
 
     view.attach('frame', game);
-    //view.zoom=0.5;
+    
     //    console.log("player");
 
 }
@@ -702,6 +703,7 @@ function onKeyDown(event) {
 }
 
 function endGame() {
+//    view.zoom = 1;
     socket.emit('leavePlayer', player);
     socket.removeAllListeners();
     leaveGameText.visible = false;
@@ -836,7 +838,7 @@ function drawCalc(object) {
     //    object.data.position = object.position;
     object.rotate(data.vector.angle - data.previousAngle);
     data.previousAngle = data.vector.angle;
-    vec = data.vector.normalize((data.speed - data.previousSpeed));
+    vec = data.vector.normalize((data.speed - data.previousSpeed) * 0.6);
     object.segments[0].point = object.segments[0].point.subtract(vec);
     object.smooth();
     data.previousSpeed = data.speed;
@@ -853,7 +855,7 @@ function createVector(object1, object2) {
 
 function changeView() {
     var data = player.data;
-    var vec = data.vector.normalize(Math.abs(data.speed * 0.97));
+    var vec = data.vector.normalize(Math.abs(data.speed * 0.9997));
     view.center = view.center.add(vec);
 
     for (var i = 0; i < gameData.children.length; i++)
@@ -899,6 +901,7 @@ function keepInView(item) {
 function reduceEnergy(value) {
     player.data.energy = Math.max(player.data.energy - value, 0); //energy loss 
     if (player.data.energy == 0) {
+        gameState = 1;
         endGame();
         //location.reload()
     }

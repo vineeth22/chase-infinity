@@ -68,10 +68,25 @@ function putUserData(username, score) {
                     db.collection('game').findOneAndUpdate(find, { $set: update }, function (err, r) {
                         assert.equal(null, err);
                     })
+                    db.close();
                 })
             })
 
         }
+        findLevel(score, function (level) {
+            var object = new Object();
+            object.username = username;
+            object.score = Math.floor(score);
+            object.level = level;
+            MongoClient.connect(url, function (err, db) {
+                assert.equal(null, err);
+                db.collection('mega').insertOne(object, function (err, r) {
+                    assert.equal(1, r.insertedCount);
+                })
+                db.close();
+            })
+        });
+
     })
 }
 
@@ -93,7 +108,7 @@ function findLevel(score, func) {
 function getLeaderboard(func) {
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
-        db.collection('game').find().sort({score:-1}).limit(10).toArray(function(err,r){
+        db.collection('game').find().sort({ score: -1 }).limit(10).toArray(function (err, r) {
             func(r);
         });
     });
