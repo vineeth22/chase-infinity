@@ -1,6 +1,10 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 
+var request = require('./request.js');
+
+var megaConversion = 0.2;
+
 /*var winston = require('winston');
 
 var logger = new (winston.Logger)({
@@ -72,6 +76,9 @@ function putUserData(username, score) {
                 })
             })
 
+            request.updateScore("chaseInfinity", score, username,function (ret) {
+                
+            });
         }
         findLevel(score, function (level) {
             var object = new Object();
@@ -86,7 +93,12 @@ function putUserData(username, score) {
                 db.close();
             })
         });
-
+        request.getMega(username, function (oldScore) {
+            var newScore = oldScore + megaConversion * score;
+            request.updateMega(username,newScore,function (ret) {
+                
+            })
+        });
     })
 }
 

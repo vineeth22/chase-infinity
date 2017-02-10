@@ -1,5 +1,3 @@
-
-console.log("hi");
 var gameState = 1; //1 start screen, 2 main game, 3 exit state
 var leaderboardClicked = 0;
 var rulesClicked = 0;
@@ -71,9 +69,11 @@ var yourScore = new PointText({
     strokeColor: 'black',
     strokeWidth: 0.5
 });
+
+var rls = "The object of the game is to cover as much distance as possible while moving along the path.\nMoving consumes energy, which players can replenish by picking up blue energy sources along the way.\nThe player's game ends if they run out of energy.\nIf the player collides with the path boundaries, they lose energy.\nCrashing with another player will cause the energy levels to rise or fall according to the current speed.\nCONTROLS:\nAccelerate : W\nSteer left : A\nSteer right : D\nFront brake : S"
 var rulesContent = new PointText({
     point: new Point(view.bounds.topLeft.x + view.bounds.width * 0.5, view.bounds.topLeft.y + view.bounds.height * 0.6),
-    content: '',
+    content: rls,
     fillColor: 'white',
     fontSize: 20,
     justification: 'center',
@@ -492,6 +492,7 @@ var newFuelFunc = function (newFuel) {
 };
 
 var removeFuelFunc = function (fuelName) {
+    if(fuelGroup.children[fuelName])
     fuelGroup.children[fuelName].remove();
 }
 
