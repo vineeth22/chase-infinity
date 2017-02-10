@@ -16,7 +16,6 @@
         var canvas = document.getElementById('gameCanvas');
         canvas.width = 1900;
         canvas.height = 1080;
-        //      paper.setup(canvas);
         var socket = io();
         var disconnectFunc = function () {
             socket.disconnect();
@@ -24,7 +23,7 @@
         }
         socket.on('disconnect', disconnectFunc);
     </script>
-<script src="javascripts/game.js" type="text/paperscript" canvas="gameCanvas"></script>
+<script src="javascripts/gameob.js" type="text/paperscript" canvas="gameCanvas"></script>
 <style>
 html, body, canvas {
 	overflow: hidden;
