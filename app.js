@@ -24,8 +24,9 @@ app.use(session({
 app.use("/", function (req, res, next) {   //enforce a cookie requirement for all requests starting with '/' 
 	if (!req.sess.username) {              //i.e. accessing the server needs session to be set
 		console.log("redirecting cookie not found");
-		res.redirect("http://teknack.in"); //this url will be provided later 
-		//next();
+		//req.sess.username = "JacquesTesting"; // Jacques: DISABLE WHEN DEPLOYING
+        res.redirect("http://teknack.in"); //this url will be provided later // Jacques: Uncomment on deployment
+		//next(); // Jacques: Disable on deployment
 	} else {
 		next();
 	}
@@ -93,7 +94,7 @@ io.on('connection', function (socket) {
         console.log(username + " stopped playing");
         io.emit('leavePlayer', username);
         paper.removePlayer(username, function (score) {
-            db.putUserData(player[1].name, player[1].data.distance);
+            db.putUserData(player[1].name, Math.floor(player[1].data.distance));
         });
     })
     socket.on('disconnect', function () {

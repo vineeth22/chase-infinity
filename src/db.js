@@ -95,7 +95,7 @@ function putUserData(username, score) {
         });
         request.getMega(username, function (oldScore) {
             var newScore = oldScore + megaConversion * score;
-            request.updateMega(username,newScore,function (ret) {
+            request.updateMega(username,Math.floor(newScore),function (ret) {
                 
             })
         });
