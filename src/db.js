@@ -120,7 +120,7 @@ function findLevel(score, func) {
 function getLeaderboard(func) {
     MongoClient.connect(url, function (err, db) {
         assert.equal(null, err);
-        db.collection('game').find().sort({ score: -1 }).limit(10).toArray(function (err, r) {
+        db.collection('game').find().sort({ score: -1 }).limit(8).toArray(function (err, r) {
             func(r);
         });
     });
