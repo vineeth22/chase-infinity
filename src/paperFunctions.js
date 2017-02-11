@@ -142,7 +142,8 @@ function getNewPlayer(name, func) {
 function removePlayer(playerName, func) {
     //console.log('removed');
     if (playerGroup.children[playerName] != null) {
-        console.log(playerGroup.children[playerName].data.distance);
+        var dist = playerGroup.children[playerName].data.distance;
+        console.log(Math.floor(dist));
         func(playerGroup.children[playerName].data.distance);
         playerGroup.children[playerName].remove();
     }
