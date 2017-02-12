@@ -20,18 +20,16 @@ app.use(session({
     activeDuration: 5 * 60 * 1000 //5 min active session
 }));
 
-
+//cookie usage 
 app.use("/", function (req, res, next) {   //enforce a cookie requirement for all requests starting with '/' 
-	if (!req.sess.username) {              //i.e. accessing the server needs session to be set
-		console.log("redirecting cookie not found");
-		//req.sess.username = "JacquesTesting"; // Jacques: DISABLE WHEN DEPLOYING
-        res.redirect("http://teknack.in"); //this url will be provided later // Jacques: Uncomment on deployment
-		//next(); // Jacques: Disable on deployment
-	} else {
-		next();
-	}
+    if (!req.sess.username) {              //i.e. accessing the server needs session to be set
+        console.log("redirecting cookie not found");
+        res.redirect("https://teknack.in"); //this url will be provided later 
+        //next();
+    } else {
+        next();
+    }
 });
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 
