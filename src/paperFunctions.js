@@ -64,7 +64,7 @@ function initGame() {
         }
         var fuel = new paper.Path.Circle({
             center: point,
-            radius: 25,
+            radius: 45,
             fillColor: 'blue',
             //opacity:0.9
         }
@@ -177,7 +177,7 @@ function newFuel(func) {
     }
     var fuel = new paper.Path.Circle({
         center: point,
-        radius: 25,
+        radius: 45,
         fillColor: 'blue'
     });
     fuel.name = "fuel";
