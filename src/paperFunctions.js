@@ -103,7 +103,7 @@ function getNewPlayer(name, func) {
     newPlayer.data.distance = 0;
     newPlayer.data.maxSteer = 4.5;
     newPlayer.data.friction = 0.99;
-    newPlayer.data.steering = 0.8;
+    newPlayer.data.steering = 0.5;
     newPlayer.data.maxSpeed = 50;
     newPlayer.data.minSpeed = 1;
     newPlayer.data.leftKey = 0;
