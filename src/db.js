@@ -17,7 +17,7 @@ logger.level = 'debug';*/
 
 // Connection URL
 //var url = 'mongodb://127.0.0.1:27017/chase';
-var url = 'mongodb://chase:cinfinity@127.0.0.1:27017/chase';
+var url = 'mongodb://127.0.0.1:27017/chase';
 
 
 // Use connect method to connect to the server

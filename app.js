@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var app = express();
-var server = app.listen(3007, function () { console.log("Server running") });
+var server = app.listen(3000, function () { console.log("Server running on port 3000") });
 var io = require('socket.io').listen(server);
 var bodyparser = require("body-parser");
 var session = require('client-sessions');
@@ -21,10 +21,10 @@ app.use(session({
 }));
 
 //cookie usage 
-app.use("/", function (req, res, next) {   //enforce a cookie requirement for all requests starting with '/' 
+app.use("/index.html",function (req, res, next) {   //enforce a cookie requirement for all requests starting with '/' 
     if (!req.sess.username) {              //i.e. accessing the server needs session to be set
         console.log("redirecting cookie not found");
-        res.redirect("https://teknack.in"); //this url will be provided later 
+        res.redirect("/login.html"); //this url will be provided later 
         //next();
     } else {
         next();
@@ -33,12 +33,12 @@ app.use("/", function (req, res, next) {   //enforce a cookie requirement for al
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*app.post('/login', function (req, res) {
+app.post('/login', function (req, res) {
     req.sess.username = req.body.username;
     res.sendStatus(200);
     //res.redirect("index.html");
 });
-*/
+
 paper.initGame();
 
 io.on('connection', function (socket) {
